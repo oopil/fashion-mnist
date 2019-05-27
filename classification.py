@@ -7,31 +7,33 @@ from keras.preprocessing.image import img_to_array, array_to_img
 from keras.utils import np_utils
 from keras.models import Sequential  
 from keras.layers import Dense,Dropout,Flatten,Conv2D,MaxPooling2D,BatchNormalization
+
 import pandas as pd
 import numpy as np
 import csv
+import utils.mnist_reader as mnist_reader
 
 def CNN_model():
     model = Sequential()
-    model.add(Conv2D(filters = 32, kernel_size = (5,5),padding = 'Same', 
+    model.add(Conv2D(filters = 32, kernel_size = (5,5),padding = 'Same',
                     activation ='relu', input_shape = (28,28,1)))
-    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same', 
+    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same',
                     activation ='relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same', 
+    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same',
                     activation ='relu'))
-    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same', 
+    model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same',
                     activation ='relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2), strides=(2,2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(filters = 96, kernel_size = (3,3),padding = 'Same', 
+    model.add(Conv2D(filters = 96, kernel_size = (3,3),padding = 'Same',
                     activation ='relu'))
-    model.add(Conv2D(filters = 96, kernel_size = (3,3),padding = 'Same', 
+    model.add(Conv2D(filters = 96, kernel_size = (3,3),padding = 'Same',
                     activation ='relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2), strides=(2,2)))
@@ -50,14 +52,9 @@ def CNN_model():
 
 
 if __name__ == "__main__":
-
     # -------- Read data ---------#
-    # datasets = pd.read_csv('train.csv')
-    datasets = pd.read_csv('./data/fashion/train-images-idx3-ubyte')
-    train_t = datasets.values[:, 0]
-    train_x = datasets.values[:, 1:]
-    testsets = pd.read_csv('test.csv')
-    test_x = testsets.values[:, 1:]
+    train_x, train_t = mnist_reader.load_mnist('data/fashion', kind='train')
+    test_x, test_t = mnist_reader.load_mnist('data/fashion', kind='t10k')
 
     # ------ Preprocess data -----#
     x_train = train_x.reshape(train_x.shape[0], 28, 28, 1).astype('float32')
@@ -69,13 +66,13 @@ if __name__ == "__main__":
 
     # ------- Model training----- #
     model = CNN_model()
-    model.compile(loss='categorical_crossentropy',
-                optimizer='adam', metrics=['accuracy'])
-    train_history = model.fit(x=x_train_norm, y=t_train_onehot, 
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    train_history = model.fit(x=x_train_norm, y=t_train_onehot,
                             epochs=100, batch_size=300, verbose=1)
-    train_history = model.fit(x=x_train_norm, y=t_train_onehot, 
+    train_history = model.fit(x=x_train_norm, y=t_train_onehot,
                             epochs=20, batch_size=600, verbose=1)
-    y_test = model.predict_classes(x_test_norm)
+    # y_test = model.predict_classes(x_test_norm)
+    y_test = model.predict(x_test_norm)
     with open('answer.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['id', 'label'])
