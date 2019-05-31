@@ -1,0 +1,41 @@
+One-hot encoding: 93.78%
+
+0:
+number =6, Frequency=0.8036253776435045
+number =3, Frequency=0.5216515609264853
+
+1:
+number =3, Frequency=0.6292929292929293
+number =8, Frequency=0.4818181818181818
+
+2:
+number =6, Frequency=0.518444666001994
+number =4, Frequency=0.36889332003988035
+
+3:
+number =4, Frequency=0.25612244897959185
+number =6, Frequency=0.23469387755102042
+
+4:
+number =6, Frequency=0.4664778092540132
+number =6, Frequency=0.26628895184135976
+
+5:
+number =9, Frequency=0.4633901705115346
+number =7, Frequency=0.49047141424272817
+
+6:
+number =4, Frequency=0.40124740124740127
+number =4, Frequency=0.28586278586278585
+
+7:
+number =9, Frequency=0.6393606393606394
+number =5, Frequency=0.5794205794205795
+
+8:
+number =9, Frequency=0.3086053412462908
+number =1, Frequency=0.380811078140455
+
+9:
+number =7, Frequency=0.9561752988047809
+number =5, Frequency=0.9173306772908366

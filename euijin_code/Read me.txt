@@ -1,0 +1,39 @@
+one-hot-testresult.txt: this file shows one hot encoding label dependancy.
+
+With using dependancy I assume encoding label as
+
+if list(onehot[i])==[1,0,0,0,0,0,0,0,0,0]:#0
+                t_depend_encode[i]=np.array([1,0,1,1,0,0])
+                
+            elif list(onehot[i])==[0,1,0,0,0,0,0,0,0,0]:#1
+                t_depend_encode[i]=np.array([0,1,1,0,1,0])
+                
+            elif list(onehot[i])==[0,0,1,0,0,0,0,0,0,0]:#2
+                t_depend_encode[i]=np.array([0,1,1,1,0,0])
+                
+            elif list(onehot[i])==[0,0,0,1,0,0,0,0,0,0]:#3
+                t_depend_encode[i]=np.array([0,1,1,0,0,0])
+                
+            elif list(onehot[i])==[0,0,0,0,1,0,0,0,0,0]:#4
+                t_depend_encode[i]=np.array([1,1,1,0,0,0])
+                
+            elif list(onehot[i])==[0,0,0,0,0,1,0,0,0,0]:#5
+                t_depend_encode[i]=np.array([0,0,0,0,1,0])
+                
+            elif list(onehot[i])==[0,0,0,0,0,0,1,0,0,0]:#6
+                t_depend_encode[i]=np.array([1,1,1,1,0,0])
+                
+            elif list(onehot[i])==[0,0,0,0,0,0,0,1,0,0]:#7
+                t_depend_encode[i]=np.array([0,0,0,0,0,1])
+                
+            elif list(onehot[i])==[0,0,0,0,0,0,0,0,1,0]:#8
+                t_depend_encode[i]=np.array([0,0,1,0,1,1])
+                
+            elif list(onehot[i])==[0,0,0,0,0,0,0,0,0,1]:#9
+                t_depend_encode[i]=np.array([0,0,0,0,1,1]) 
+
+
+as their relationship. Also consider distance between two label.
+
+I learn this (details are in code) and make 0.9365%(with 500epoch and different experiment setting with first code)
+
